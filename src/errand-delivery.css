@@ -1,0 +1,100 @@
+.errand-page{max-width:1120px;padding-top:1px}
+.errand-back-link{display:inline-flex;align-items:center;gap:6px;margin:0 0 15px;padding:4px 0;border:0;background:transparent;color:#818994;font:600 10px "DM Sans",sans-serif;cursor:pointer}
+.errand-back-link:hover{color:#e95b2a}
+.errand-hero{position:relative;display:flex;align-items:center;gap:17px;min-height:145px;margin-bottom:18px;padding:23px 25px;overflow:hidden;border:1px solid #dceee5;border-radius:15px;background:linear-gradient(112deg,#f6fcf8 0%,#edf8f1 57%,#e0f2e7 100%)}
+.errand-hero-orb{position:absolute;border-radius:50%;pointer-events:none}
+.errand-hero-orb-one{width:205px;height:205px;right:11%;top:-127px;background:#ffffff85}
+.errand-hero-orb-two{width:148px;height:148px;right:3%;bottom:-105px;border:1px solid #9ed1b166}
+.errand-hero-icon{z-index:1;width:54px;height:54px;display:grid;place-items:center;flex-shrink:0;border:1px solid #cce8d7;border-radius:16px;background:#fff;color:#29966a;box-shadow:0 6px 16px #39966b1a}
+.errand-hero-copy{z-index:1}
+.errand-hero-kicker{display:flex;align-items:center;gap:6px;color:#438763;font-size:8px;font-weight:800;letter-spacing:1px}
+.errand-hero-kicker i{width:6px;height:6px;border-radius:50%;background:#32a06e;box-shadow:0 0 0 3px #32a06e1a}
+.errand-hero-copy h1{margin:8px 0 5px;color:#292e36;font:750 24px/1.2 Manrope,sans-serif;letter-spacing:-.7px}
+.errand-hero-copy p{max-width:470px;margin:0;color:#7a7f86;font-size:10px;line-height:1.55}
+.errand-hero-note{z-index:1;display:flex;align-items:center;gap:9px;margin-left:auto;padding:10px 12px;border:1px solid #d7ecdf;border-radius:10px;background:#ffffffbd;color:#32966a}
+.errand-hero-note span{display:grid;gap:3px}
+.errand-hero-note strong{color:#4d6859;font-size:9px}
+.errand-hero-note small{color:#8a9b91;font-size:8px}
+.errand-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(265px,.8fr);align-items:start;gap:16px}
+.errand-main{display:grid;gap:13px;min-width:0}
+.errand-form-card,.errand-summary-card{border:1px solid #e9edf0;border-radius:12px;background:#fff;box-shadow:0 3px 11px #252a3208}
+.errand-form-card{padding:18px}
+.errand-section-heading{display:flex;align-items:flex-start;gap:11px;margin-bottom:15px}
+.errand-section-number{width:28px;height:28px;display:grid;place-items:center;flex-shrink:0;border-radius:8px;background:#edf8f1;color:#2d9365;font:700 9px Manrope,sans-serif}
+.errand-section-heading h2{margin:1px 0 4px;color:#323840;font:700 13px Manrope,sans-serif}
+.errand-section-heading p{margin:0;color:#8b929b;font-size:9px;line-height:1.45}
+.errand-service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.errand-service-card{position:relative;display:flex;align-items:flex-start;gap:10px;min-width:0;min-height:84px;padding:11px;border:1px solid #e9edf0;border-radius:9px;background:#fff;text-align:left;cursor:pointer;transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+.errand-service-card:hover{border-color:#a9d8bb;background:#fcfffd;transform:translateY(-1px)}
+.errand-service-card:focus-visible,.errand-submit-button:focus-visible,.errand-back-link:focus-visible{outline:2px solid #32a06e;outline-offset:2px}
+.errand-service-selected{border-color:#64b889;background:#f5fbf7;box-shadow:0 0 0 2px #29966a12}
+.errand-service-icon{width:35px;height:35px;display:grid;place-items:center;flex-shrink:0;border-radius:9px;background:#eaf7ef;color:#32966a}
+.errand-service-card:nth-child(2) .errand-service-icon{background:#fff4e8;color:#da8c31}
+.errand-service-card:nth-child(3) .errand-service-icon{background:#fff0f3;color:#d56583}
+.errand-service-card:nth-child(4) .errand-service-icon{background:#eef3ff;color:#617cc1}
+.errand-service-card:nth-child(5) .errand-service-icon{background:#f4efff;color:#8767bb}
+.errand-service-copy{display:grid;gap:4px;min-width:0;flex:1;padding-right:10px}
+.errand-service-copy strong{color:#343b44;font-size:9px;font-weight:700}
+.errand-service-copy small{color:#9299a2;font-size:8px;line-height:1.4}
+.errand-service-copy b{margin-top:2px;color:#4c715e;font-size:8px}
+.errand-service-radio{position:absolute;top:12px;right:11px;width:15px;height:15px;display:grid;place-items:center;border:1.5px solid #d5d9de;border-radius:50%}
+.errand-service-selected .errand-service-radio{border-color:#29966a}
+.errand-service-selected .errand-service-radio i{width:7px;height:7px;border-radius:50%;background:#29966a}
+.errand-location-fields{position:relative;display:grid;gap:13px}
+.errand-field{display:grid;gap:7px;min-width:0}
+.errand-field-label{display:flex;align-items:center;gap:6px;color:#555d67;font-size:9px;font-weight:700}
+.errand-field-label>svg{color:#39966b}
+.errand-field-label>b{padding:3px 5px;border-radius:4px;background:#f5f6f7;color:#9a9fa6;font-size:7px;font-weight:600}
+.errand-input-shell{position:relative;display:flex;align-items:center;min-height:42px;border:1px solid #e5e9ed;border-radius:8px;background:#fff;color:#43a075;transition:border-color .16s ease,box-shadow .16s ease}
+.errand-input-shell:focus-within{border-color:#7bbf98;box-shadow:0 0 0 3px #29966a12}
+.errand-input-shell>svg{position:absolute;left:12px;pointer-events:none}
+.errand-input-shell input{width:100%;min-width:0;height:40px;padding:0 12px 0 39px;border:0;border-radius:8px;outline:0;background:transparent;color:#353c45;font:500 10px "DM Sans",sans-serif}
+.errand-input-shell input::placeholder,.errand-textarea-field textarea::placeholder{color:#adb3ba}
+.errand-route-connector{position:absolute;top:39px;left:19px;height:28px;display:grid;align-content:space-between;justify-items:center;z-index:1}
+.errand-route-connector i{width:3px;height:3px;border-radius:50%;background:#c9cdd2}
+.errand-textarea-field{position:relative;display:grid;gap:7px}
+.errand-textarea-field+.errand-textarea-field{margin-top:15px}
+.errand-textarea-field textarea{width:100%;min-height:92px;resize:vertical;padding:10px 11px 24px;border:1px solid #e5e9ed;border-radius:8px;outline:0;background:#fff;color:#353c45;font:500 9px/1.5 "DM Sans",sans-serif;transition:border-color .16s ease,box-shadow .16s ease}
+.errand-textarea-field textarea:focus{border-color:#7bbf98;box-shadow:0 0 0 3px #29966a12}
+.errand-textarea-field>small{position:absolute;right:9px;bottom:7px;color:#a0a6ad;font-size:7px}
+.errand-field-label>span{color:#a0a5ac;font-size:8px;font-weight:500}
+.errand-instructions textarea{min-height:70px}
+.errand-assurance{display:flex;align-items:center;gap:9px;padding:4px 5px;color:#4f9b7a}
+.errand-assurance>span{display:grid;gap:3px}
+.errand-assurance strong{color:#5d6871;font-size:8px}
+.errand-assurance small{color:#939aa2;font-size:8px}
+.errand-summary-card{position:sticky;top:82px;padding:17px}
+.errand-summary-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-bottom:13px;border-bottom:1px solid #eef0f2}
+.errand-summary-heading>span{display:flex;align-items:center;gap:7px;color:#29966a}
+.errand-summary-heading b{color:#505862;font-size:8px;letter-spacing:.9px}
+.errand-summary-heading>small{color:#9ba1a9;font-size:8px}
+.errand-summary-route{padding:14px 2px 12px}
+.errand-summary-stop{display:flex;align-items:center;gap:10px;min-height:36px}
+.errand-summary-stop>span:last-child{display:grid;gap:4px;min-width:0}
+.errand-summary-stop small,.errand-summary-service>span:last-child small{color:#9aa0a8;font-size:7px;font-weight:700;letter-spacing:.7px}
+.errand-summary-stop strong{overflow:hidden;color:#555d67;font-size:9px;font-weight:600;text-overflow:ellipsis;white-space:nowrap}
+.errand-stop-dot{width:10px;height:10px;display:grid;place-items:center;flex-shrink:0;border-radius:50%}
+.errand-pickup-dot{border:2px solid #35a17a}
+.errand-dropoff-dot{border:2px solid #f45b24}
+.errand-summary-route-line{height:16px;margin-left:4px;border-left:1px dashed #d8dce0}
+.errand-summary-service{display:flex;align-items:center;gap:9px;padding:11px 0;border-top:1px solid #eef0f2}
+.errand-summary-icon{width:33px;height:33px;display:grid;place-items:center;border-radius:9px;background:#edf8f1;color:#29966a}
+.errand-summary-service>span:last-child{display:grid;gap:4px}
+.errand-summary-service>span:last-child strong{color:#555d67;font-size:9px}
+.errand-summary-detail{padding:10px 0;border-top:1px solid #eef0f2}
+.errand-summary-detail>span,.errand-summary-cost>span{color:#78808a;font-size:8px}
+.errand-summary-detail p{display:-webkit-box;overflow:hidden;margin:6px 0 0;color:#575f69;font-size:8px;line-height:1.5;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.errand-summary-cost{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-top:1px solid #eef0f2}
+.errand-summary-cost strong{color:#303740;font:700 16px Manrope,sans-serif}
+.errand-summary-payment{display:flex;align-items:center;gap:8px;padding:10px;border-radius:8px;background:#f7f9fa;color:#7f8790}
+.errand-summary-payment>span{display:grid;gap:3px}
+.errand-summary-payment strong{color:#58616b;font-size:8px}
+.errand-summary-payment small{color:#929aa3;font-size:7px}
+.errand-submit-button{width:100%;height:41px;display:flex;align-items:center;justify-content:center;gap:9px;margin-top:12px;border:0;border-radius:8px;background:#29966a;color:#fff;font-size:9px;font-weight:700;box-shadow:0 5px 12px #29966a2b;cursor:pointer;transition:background .16s ease,transform .16s ease,box-shadow .16s ease}
+.errand-submit-button:hover{background:#218358;transform:translateY(-1px);box-shadow:0 7px 16px #29966a38}
+.errand-summary-footnote{display:flex;align-items:center;justify-content:center;gap:5px;margin:10px 0 0;color:#929aa3;font-size:7px}
+.errand-summary-footnote svg{color:#7d9a89}
+@media(max-width:900px){.errand-layout{grid-template-columns:minmax(0,1.35fr) minmax(245px,.85fr);gap:12px}.errand-service-grid{grid-template-columns:1fr}.errand-hero-note{display:none}}
+@media(max-width:700px){.errand-page{padding-top:0}.errand-hero{min-height:unset;align-items:flex-start;gap:12px;padding:18px 15px;margin-bottom:13px}.errand-hero-icon{width:43px;height:43px;border-radius:13px}.errand-hero-icon svg{width:20px}.errand-hero-copy h1{font-size:19px}.errand-hero-copy p{font-size:9px}.errand-hero-orb-one{right:-30px}.errand-layout{grid-template-columns:1fr}.errand-main{gap:10px}.errand-form-card{padding:14px}.errand-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.errand-service-card{min-height:92px;padding:9px;gap:7px}.errand-service-icon{width:30px;height:30px}.errand-service-copy strong{font-size:8px}.errand-service-copy small{font-size:7px}.errand-service-radio{top:9px;right:8px;width:13px;height:13px}.errand-summary-card{position:static;padding:15px}.errand-summary-heading b{font-size:8px}}
+@media(max-width:390px){.errand-service-grid{grid-template-columns:1fr}.errand-service-card{min-height:72px}.errand-service-copy strong{font-size:9px}.errand-service-copy small{font-size:8px}}
+@media(prefers-reduced-motion:reduce){.errand-service-card,.errand-submit-button{transition:none}}
