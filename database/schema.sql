@@ -81,5 +81,27 @@ CREATE TABLE IF NOT EXISTS notifications (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS service_requests (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id BIGINT UNSIGNED NOT NULL,
+  request_code VARCHAR(16) NOT NULL,
+  request_kind ENUM('ride', 'errand') NOT NULL,
+  service VARCHAR(64) NOT NULL,
+  pickup_location VARCHAR(200) NOT NULL,
+  destination VARCHAR(200) NOT NULL,
+  details VARCHAR(1000) NOT NULL DEFAULT '',
+  instructions VARCHAR(500) NOT NULL DEFAULT '',
+  service_fee DECIMAL(8, 2) NOT NULL,
+  status ENUM('Pending', 'Accepted', 'Rider on the way', 'In Progress', 'Completed', 'Cancelled')
+    NOT NULL DEFAULT 'Pending',
+  created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+  updated_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
+  PRIMARY KEY (id),
+  UNIQUE KEY uq_service_requests_code (request_code),
+  KEY idx_service_requests_user_created (user_id, created_at),
+  CONSTRAINT fk_service_requests_user
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 -- Create the first administrator through a protected server-side workflow.
 -- Do not expose admin role assignment in the public registration form.

@@ -1,0 +1,93 @@
+:root {
+  --primary: #164A8A;
+  --primary-dark: #10366B;
+  --lake-mist: #EDF4FC;
+  --harvest-gold: #E2B52F;
+  --resilience-red: #C9343F;
+  --page-bg: #F7F9FC;
+}
+
+.nav-link.selected {
+  background: var(--lake-mist);
+}
+
+.hero-banner {
+  background: linear-gradient(112deg, var(--lake-mist) 0%, #F7F9FC 48%, #DBE9F8 100%);
+}
+
+.about-hero {
+  background: linear-gradient(112deg, var(--lake-mist) 0%, #F7F9FC 48%, #DBE9F8 100%);
+}
+
+.hero-kicker > span,
+.about-kicker > span {
+  background: var(--harvest-gold);
+}
+
+.sidebar-promo button {
+  color: var(--harvest-gold);
+}
+
+.hero-primary:hover,
+.primary-button:hover,
+.auth-submit:hover,
+.logout-confirm-button:hover:not(:disabled),
+[class*="submit"]:hover {
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: #fff;
+}
+
+.notification-error,
+.logout-modal .logout-modal-error,
+.error-message,
+.auth-field-error {
+  color: var(--resilience-red);
+}
+
+@media (max-width: 860px) {
+  .main-area,
+  .content {
+    min-width: 0;
+  }
+
+  .sidebar {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .mobile-scrim {
+    touch-action: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .header-datetime {
+    display: none;
+  }
+
+  .app-shell {
+    overflow-x: clip;
+  }
+
+  .topbar {
+    min-height: 56px;
+  }
+
+  .mobile-menu,
+  .nav-link,
+  .hero-primary,
+  .hero-secondary,
+  .primary-button {
+    min-height: 42px;
+  }
+
+  .request-table,
+  .transaction-table {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

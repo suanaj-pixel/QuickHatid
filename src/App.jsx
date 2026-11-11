@@ -472,7 +472,7 @@ function App() {
   return (
     <div className="app-shell">
       <aside className={`sidebar ${menuOpen ? 'sidebar-open' : ''}`}>
-        <a className="brand" href="#" onClick={(event) => { event.preventDefault(); setPage('Overview') }}>
+        <a className="brand" href="#" onClick={(event) => { event.preventDefault(); setPage('Overview'); setMenuOpen(false) }}>
           <span className="brand-mark"><Zap size={21} fill="currentColor" /></span>
           <span>quick<span className="brand-orange">hatid</span><small>YOUR LOCAL SERVICE, ON THE WAY</small></span>
         </a>
@@ -488,8 +488,8 @@ function App() {
         </nav>
         <div className="nav-heading tools-heading">YOUR ACCOUNT</div>
         <nav className="main-nav">
-          <button className={`nav-link ${page === 'Notifications' ? 'selected' : ''}`} onClick={() => setPage('Notifications')}><Bell size={18} /><span>Notifications</span>{unreadNotificationCount > 0 && <small className="nav-count">{unreadNotificationCount > 99 ? '99+' : unreadNotificationCount}</small>}</button>
-          <button className={`nav-link ${page === 'Profile' ? 'selected' : ''}`} onClick={() => setPage('Profile')}><UserRound size={18} /><span>My profile</span></button>
+          <button className={`nav-link ${page === 'Notifications' ? 'selected' : ''}`} onClick={() => { setPage('Notifications'); setMenuOpen(false) }}><Bell size={18} /><span>Notifications</span>{unreadNotificationCount > 0 && <small className="nav-count">{unreadNotificationCount > 99 ? '99+' : unreadNotificationCount}</small>}</button>
+          <button className={`nav-link ${page === 'Profile' ? 'selected' : ''}`} onClick={() => { setPage('Profile'); setMenuOpen(false) }}><UserRound size={18} /><span>My profile</span></button>
         </nav>
         <div className="sidebar-promo">
           <div className="promo-icon"><Headphones size={20} /></div>
@@ -507,7 +507,7 @@ function App() {
 
       <main className="main-area">
         <header className="topbar">
-          <button className="mobile-menu icon-btn" aria-label="Open menu" onClick={() => setMenuOpen(!menuOpen)}><Menu size={21} /></button>
+          <button className="mobile-menu icon-btn" aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><Menu size={21} /></button>
           <div className="breadcrumb"><span>Pages</span><ChevronRight size={14} /><strong>{title}</strong></div>
           <HeaderDateTime />
           <div className="topbar-actions">
@@ -561,7 +561,7 @@ function App() {
 
         <div className="content">
           {demoMode && <div className="exhibition-banner"><ShieldCheck size={14} /><span><strong>Exhibition mode</strong> · Accounts save in this browser only.</span><button onClick={() => setNotice('To connect MySQL later, set VITE_AUTH_MODE=mysql and configure the server environment.')}>About this demo</button></div>}
-          {page === 'Overview' && <Overview requests={filteredRequests} activeCount={activeCount} completedCount={completedCount} onBook={(kind) => kind === 'errand' ? setPage('Errand delivery') : setModal(kind)} onNavigate={setPage} onStatus={updateStatus} role={role} setRole={setRole} user={authUser} />}
+          {page === 'Overview' && <Overview requests={filteredRequests} activeCount={activeCount} completedCount={completedCount} onBook={(kind) => setPage(kind === 'errand' ? 'Errand delivery' : 'Book a ride')} onNavigate={setPage} onStatus={updateStatus} role={role} setRole={setRole} user={authUser} />}
           {page === 'Book a ride' && <BookingPage kind="ride" onBook={createRequest} onBack={() => setPage('Overview')} />}
           {page === 'Errand delivery' && <ErrandDeliveryPage onBook={createRequest} onBack={() => setPage('Overview')} />}
           {page === 'My requests' && <RequestsPage requests={filteredRequests} onStatus={updateStatus} onBook={() => setModal('ride')} />}

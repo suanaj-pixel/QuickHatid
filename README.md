@@ -19,6 +19,22 @@ QuickHatid supports a React/Vite exhibition mode and an Express API mode with My
 
    Open `http://localhost:5173`. Create Account, Sign In, Sign Out, profile editing, password changes, password recovery, and notifications work without a database. Exhibition accounts and per-account notification history are saved in this browser only, and passwords are PBKDF2-hashed before storage. The demo reset code appears on screen instead of being emailed. Do not use exhibition mode or its browser storage for real accounts.
 
+## Android and iOS app
+
+The `mobile/` folder contains the Expo React Native app for Android and iOS. It uses the MySQL-backed API for registration, sign-in, ride/errand requests, and request history.
+
+1. Complete the MySQL setup in the next section and start the API with `npm run dev:api`.
+2. Install Expo Go on your phone, and install the mobile app dependencies once:
+
+   ```powershell
+   npm.cmd install --prefix mobile
+   ```
+
+3. Copy `mobile/.env.example` to `mobile/.env`, then set `EXPO_PUBLIC_API_URL` to your computer's reachable API address, for example `http://192.168.1.25:3001` (use your computer's LAN IP when testing on a physical phone). Keep the phone and computer on the same network. Android emulators default to `http://10.0.2.2:3001`; iOS simulators default to `http://localhost:3001`.
+4. Start Expo with `npm.cmd run mobile` and scan the QR code in Expo Go. The `npm.cmd run mobile:android` and `npm.cmd run mobile:ios` commands open platform simulators when they are installed (the iOS simulator requires macOS).
+
+Mobile access tokens are stored in the device secure store and sent as bearer tokens. Use HTTPS for a deployed API; do not use the development HTTP address for a public release.
+
 ## Connect MySQL later
 
 When your instructor is ready to configure MySQL:
@@ -54,9 +70,11 @@ Public registration always creates a `customer` account. Rider and administrator
 UPDATE users SET role = 'admin' WHERE email = 'admin@example.com';
 ```
 
-In MySQL mode, the application never returns password hashes or session tokens from its API. Session tokens are random, stored in HTTP-only cookies, and stored as keyed hashes in `user_sessions`. Password-recovery codes expire after five minutes, are stored as bcrypt hashes, permit at most five verification attempts, and require a short-lived reset cookie issued only after successful code verification.
+In web MySQL mode, the application never returns password hashes or session tokens from its API. Web session tokens are random, stored in HTTP-only cookies, and stored as keyed hashes in `user_sessions`. The native app receives a bearer token only on native-client authentication requests; the token is stored in the device secure store, while its keyed hash is stored in `user_sessions`. Password-recovery codes expire after five minutes, are stored as bcrypt hashes, permit at most five verification attempts, and require a short-lived reset cookie issued only after successful code verification.
 
 Notifications are stored per user in the `notifications` table and remain available after logout. Apply `database/schema.sql` to an existing database with `npm run setup:db` before using MySQL-mode notifications. The app creates notification history for account creation/profile/password changes and ride or errand request status updates.
+
+Ride and errand requests from the mobile app are stored in `service_requests`, created by `database/schema.sql`, and listed per signed-in customer.
 
 ## Authentication API
 

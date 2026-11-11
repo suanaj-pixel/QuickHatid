@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "QuickHatid",
+    "slug": "quickhatid",
+    "scheme": "quickhatid",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#F7F9FC",
+    "ios": {
+      "bundleIdentifier": "ph.quickhatid.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "ph.quickhatid.app",
+      "softwareKeyboardLayoutMode": "resize",
+      "adaptiveIcon": {
+        "backgroundColor": "#164A8A",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store"
+    ]
+  }
+}

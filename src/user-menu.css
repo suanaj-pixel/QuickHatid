@@ -1,35 +1,35 @@
 .account-menu-wrap{position:relative}
 .avatar-user img{width:100%;height:100%;display:block;object-fit:cover;border-radius:inherit}
 .role-picker{cursor:pointer;border-radius:8px;transition:background .18s ease,box-shadow .18s ease;padding:4px 6px}
-.role-picker:hover,.role-picker.account-menu-trigger-open{background:#fff7f2}
-.role-picker:focus-visible,.account-dropdown button:focus-visible,.logout-modal button:focus-visible{outline:2px solid #f45b24;outline-offset:2px}
+.role-picker:hover,.role-picker.account-menu-trigger-open{background:#f7f9fc}
+.role-picker:focus-visible,.account-dropdown button:focus-visible,.logout-modal button:focus-visible{outline:2px solid #164a8a;outline-offset:2px}
 .account-menu-chevron{transition:transform .2s ease}
 .account-menu-trigger-open .account-menu-chevron{transform:rotate(180deg)}
-.account-dropdown{position:absolute;top:calc(100% + 11px);right:0;width:230px;padding:7px;background:#fff;border:1px solid #edf0f3;border-radius:11px;box-shadow:0 16px 42px #252a3226;z-index:20;transform-origin:top right;animation:account-dropdown-enter .18s ease both}
+.account-dropdown{position:absolute;top:calc(100% + 11px);right:0;width:230px;padding:7px;background:#ffffff;border:1px solid #edf0f3;border-radius:11px;box-shadow:0 16px 42px #252a3226;z-index:20;transform-origin:top right;animation:account-dropdown-enter .18s ease both}
 .account-dropdown-heading{padding:10px 11px 11px;display:grid;gap:4px;overflow:hidden}
 .account-dropdown-heading strong{font-size:11px;color:#292e36;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .account-dropdown-heading span{font-size:9px;color:#9299a3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .account-dropdown>button{width:100%;height:37px;display:flex;align-items:center;gap:10px;padding:0 11px;border:0;border-radius:7px;background:transparent;color:#4d5560;text-align:left;font:600 10px "DM Sans",sans-serif;cursor:pointer;transition:background .16s ease,color .16s ease}
 .account-dropdown>button svg{color:#858d97;flex-shrink:0}
-.account-dropdown>button:hover{background:#fff3ec;color:#dc5424}
-.account-dropdown>button:hover svg{color:#f45b24}
+.account-dropdown>button:hover{background:#f7f9fc;color:#95b3dc}
+.account-dropdown>button:hover svg{color:#164a8a}
 .account-dropdown-divider{height:1px;background:#eff1f3;margin:6px 4px}
-.account-dropdown>button.account-logout-item{color:#c84e35}
-.account-dropdown>button.account-logout-item svg{color:#d35a3c}
-.account-dropdown>button.account-logout-item:hover{background:#fff0ed}
+.account-dropdown>button.account-logout-item{color:#5f8bc9}
+.account-dropdown>button.account-logout-item svg{color:#6f99d3}
+.account-dropdown>button.account-logout-item:hover{background:#f7f9fc}
 @keyframes account-dropdown-enter{from{opacity:0;transform:translateY(-5px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .logout-modal-backdrop{position:fixed;inset:0;z-index:30;background:#20263080;display:grid;place-items:center;padding:20px;animation:logout-backdrop-enter .18s ease both}
-.logout-modal{width:min(100%,390px);padding:29px 28px 25px;background:#fff;border:1px solid #f0f1f3;border-radius:17px;box-shadow:0 24px 70px #171c2660;text-align:center;animation:logout-modal-enter .22s cubic-bezier(.2,.8,.2,1) both}
-.logout-modal-icon{width:52px;height:52px;margin:0 auto 15px;border-radius:16px;background:#fff1e9;color:#f45b24;display:grid;place-items:center}
+.logout-modal{width:min(100%,390px);padding:29px 28px 25px;background:#ffffff;border:1px solid #f0f1f3;border-radius:17px;box-shadow:0 24px 70px #171c2660;text-align:center;animation:logout-modal-enter .22s cubic-bezier(.2,.8,.2,1) both}
+.logout-modal-icon{width:52px;height:52px;margin:0 auto 15px;border-radius:16px;background:#f7f9fc;color:#164a8a;display:grid;place-items:center}
 .logout-modal h2{margin:0;color:#292e36;font:700 20px Manrope,sans-serif;letter-spacing:-.4px}
 .logout-modal>p{margin:10px auto 0;max-width:300px;color:#777f89;font-size:12px;line-height:1.6}
-.logout-modal .logout-modal-error{max-width:none;padding:9px 10px;border:1px solid #f5d2cd;border-radius:7px;background:#fff7f5;color:#a63d30;font-size:10px}
+.logout-modal .logout-modal-error{max-width:none;padding:9px 10px;border:1px solid #f5d2cd;border-radius:7px;background:#f7f9fc;color:#a63d30;font-size:10px}
 .logout-modal-actions{display:flex;gap:10px;margin-top:23px}
 .logout-modal-actions button{height:41px;flex:1;border:0;border-radius:8px;font:700 10px "DM Sans",sans-serif;cursor:pointer;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
 .logout-modal-actions button:hover:not(:disabled){transform:translateY(-1px)}
 .logout-modal-actions button:disabled{opacity:.65;cursor:wait}
-.logout-confirm-button{background:#f45b24;color:white;box-shadow:0 5px 12px #f45b2433}
-.logout-confirm-button:hover:not(:disabled){background:#df4f1d;box-shadow:0 7px 16px #f45b2440}
+.logout-confirm-button{background:#164a8a;color:white;box-shadow:0 5px 12px #164a8a33}
+.logout-confirm-button:hover:not(:disabled){background:#a7bfe1;box-shadow:0 7px 16px #164a8a40}
 .logout-cancel-button{background:#f0f2f4;color:#59616b}
 .logout-cancel-button:hover:not(:disabled){background:#e5e8eb}
 @keyframes logout-backdrop-enter{from{opacity:0}to{opacity:1}}

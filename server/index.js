@@ -152,11 +152,14 @@ async function createSession(userId, remember, res) {
     ...cookieOptions,
     ...(remember ? { maxAge: lifetimeMs } : {}),
   })
+  return rawToken
 }
 
 async function requireUser(req, res, next) {
   try {
-    const rawToken = req.cookies[cookieName]
+    const authorization = req.get('authorization') || ''
+    const bearerToken = authorization.match(/^Bearer ([A-Za-z0-9_-]+)$/)?.[1]
+    const rawToken = bearerToken || req.cookies[cookieName]
     if (!rawToken) return res.status(401).json({ error: 'Please sign in to continue.' })
     const [rows] = await pool.execute(
       `SELECT u.id, u.full_name, u.username, u.email, u.mobile_number, u.role
@@ -255,6 +258,101 @@ app.get('/api/notifications', requireUser, asyncRoute(async (req, res) => {
   res.json({ notifications: rows.map(publicNotification) })
 }))
 
+app.get('/api/requests', requireUser, asyncRoute(async (req, res) => {
+  const [rows] = await pool.execute(
+    `SELECT request_code, request_kind, service, pickup_location, destination,
+            details, instructions, service_fee, status, created_at
+     FROM service_requests WHERE user_id = ?
+     ORDER BY created_at DESC, id DESC LIMIT 100`,
+    [req.user.id],
+  )
+  res.json({
+    requests: rows.map((request) => ({
+      id: request.request_code,
+      kind: request.request_kind,
+      service: request.service,
+      from: request.pickup_location,
+      to: request.destination,
+      details: request.details,
+      instructions: request.instructions,
+      fee: Number(request.service_fee),
+      status: request.status,
+      date: new Date(request.created_at).toISOString(),
+    })),
+  })
+}))
+
+app.post('/api/requests', requireUser, asyncRoute(async (req, res) => {
+  const kind = String(req.body.kind || '')
+  const service = String(req.body.service || '').trim()
+  const pickup = String(req.body.from || '').trim()
+  const destination = String(req.body.to || '').trim()
+  const details = String(req.body.details || '').trim()
+  const instructions = String(req.body.instructions || '').trim()
+  const serviceFees = {
+    'Motorcycle ride': 50,
+    'Point-to-point travel': 80,
+    'Grocery shopping': 80,
+    'Food pickup': 60,
+    'Food & parcel pickup': 60,
+    'Medicine pickup': 70,
+    'Documents & more': 65,
+    'Document delivery': 65,
+  }
+  if (!['ride', 'errand'].includes(kind)
+    || !Object.hasOwn(serviceFees, service)
+    || (kind === 'ride') !== ['Motorcycle ride', 'Point-to-point travel'].includes(service)
+    || pickup.length < 2 || pickup.length > 200
+    || destination.length < 2 || destination.length > 200
+    || details.length > 1000
+    || instructions.length > 500) {
+    return res.status(400).json({ error: 'Check the ride or errand details and try again.' })
+  }
+  const requestCode = `QH-${crypto.randomBytes(4).toString('hex').toUpperCase()}`
+  const fee = serviceFees[service]
+  const connection = await pool.getConnection()
+  try {
+    await connection.beginTransaction()
+    await connection.execute(
+      `INSERT INTO service_requests
+         (user_id, request_code, request_kind, service, pickup_location, destination, details, instructions, service_fee)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.user.id, requestCode, kind, service, pickup, destination, details, instructions, fee],
+    )
+    await connection.execute(
+      `INSERT INTO notifications (user_id, title, message, notification_type, related_request_id)
+       VALUES (?, ?, ?, ?, ?)`,
+      [
+        req.user.id,
+        kind === 'ride' ? 'Ride request submitted' : 'Errand request submitted',
+        'Your request was submitted and is waiting for a rider.',
+        kind,
+        requestCode,
+      ],
+    )
+    await connection.commit()
+  } catch (error) {
+    await connection.rollback()
+    throw error
+  } finally {
+    connection.release()
+  }
+  res.status(201).json({
+    request: {
+      id: requestCode,
+      kind,
+      service,
+      from: pickup,
+      to: destination,
+      details,
+      instructions,
+      fee,
+      status: 'Pending',
+      date: new Date().toISOString(),
+    },
+  })
+}))
+
 app.post('/api/notifications', requireUser, notificationWriteLimiter, asyncRoute(async (req, res) => {
   const title = String(req.body.title || '').trim()
   const message = String(req.body.message || '').trim()
@@ -332,8 +430,12 @@ app.post('/api/auth/register', authLimiter, asyncRoute(async (req, res) => {
     message: 'Your account is ready. Start by booking a ride or requesting an errand.',
     type: 'account',
   })
-  await createSession(result.insertId, true, res)
-  res.status(201).json({ user: publicUser(users[0]), message: 'Your QuickHatid account is ready.' })
+  const accessToken = await createSession(result.insertId, true, res)
+  res.status(201).json({
+    user: publicUser(users[0]),
+    message: 'Your QuickHatid account is ready.',
+    ...(req.get('x-quickhatid-client') === 'native' ? { accessToken } : {}),
+  })
 }))
 
 app.post('/api/auth/login', authLimiter, asyncRoute(async (req, res) => {
@@ -354,12 +456,18 @@ app.post('/api/auth/login', authLimiter, asyncRoute(async (req, res) => {
   }
   const previousToken = req.cookies[cookieName]
   if (previousToken) await pool.execute('DELETE FROM user_sessions WHERE session_token_hash = ?', [tokenHash(previousToken)])
-  await createSession(user.id, req.body.remember === true, res)
-  res.json({ user: publicUser(user), message: 'Signed in successfully.' })
+  const accessToken = await createSession(user.id, req.body.remember === true, res)
+  res.json({
+    user: publicUser(user),
+    message: 'Signed in successfully.',
+    ...(req.get('x-quickhatid-client') === 'native' ? { accessToken } : {}),
+  })
 }))
 
 app.post('/api/auth/logout', asyncRoute(async (req, res) => {
-  const rawToken = req.cookies[cookieName]
+  const authorization = req.get('authorization') || ''
+  const bearerToken = authorization.match(/^Bearer ([A-Za-z0-9_-]+)$/)?.[1]
+  const rawToken = bearerToken || req.cookies[cookieName]
   if (rawToken) {
     await pool.execute('DELETE FROM user_sessions WHERE session_token_hash = ?', [tokenHash(rawToken)])
   }
@@ -594,7 +702,7 @@ app.use((error, req, res, next) => {
     return res.status(503).json({ error: 'The quickhatid_db database does not exist. Run `npm run setup:db` to create the database and tables.' })
   }
   if (error.code === 'ER_NO_SUCH_TABLE') {
-    return res.status(503).json({ error: 'QuickHatid authentication tables are missing. Run `npm run setup:db` to create them.' })
+    return res.status(503).json({ error: 'A required QuickHatid database table is missing. Run `npm run setup:db` to apply the database schema.' })
   }
   const status = Number(error.status) || 500
   res.status(status).json({
